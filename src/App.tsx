@@ -29,6 +29,7 @@ function App(props:AppPropsType) {
                     <Route path={'/music'} component={Music}/>
                     <Route path={'/settings'} component={Settings}/>
                 </div>
+                <div>hello</div>
             </div>
     );
 }
