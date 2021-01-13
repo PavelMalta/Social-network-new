@@ -36,15 +36,20 @@ export type StoreType = {
     dispatch: (action: ActionsTypes) => void
 }
 
-type AddPostActionType = {
-    type: 'ADD-POST'
-    postText: string
+export type ActionsTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof onPostChangeActionCreator> //типизация на основе возвращаемого значения из функции
+
+export const addPostActionCreator = (postText: string) => {
+    return {
+        type: "ADD-POST",
+        postText: postText
+    } as const   // воспринимай обьект как константу
 }
-type AddUpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
+export const onPostChangeActionCreator = (newText: string) => {
+    return {
+        type: "UPDATE-NEW-POST-TEXT",
+        newText: newText
+    } as const
 }
-export type ActionsTypes = AddPostActionType | AddUpdateNewPostTextActionType
 
 const store: StoreType = {
     _state: {
@@ -94,7 +99,7 @@ const store: StoreType = {
                 message: this._state.profilePage.newPostText,
                 likesCount: 0
             }
-            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.posts.unshift(newPost)
             this._state.profilePage.newPostText = '';
             this._callSubscriber()
         } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
