@@ -23,8 +23,8 @@ export function Dialogs(props: DialogsPropsType) {
                 {messagesElements}
             </div>
             <div>
-                <textarea/>
-                <button>add</button>
+                <div><textarea placeholder={'Enter your message'}/></div>
+                <div><button>Send</button></div>
             </div>
         </div>
     )
