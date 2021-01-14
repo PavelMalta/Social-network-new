@@ -9,6 +9,7 @@ import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Settings} from './components/Settings/Settings';
 import {ActionsTypes, RootStateType} from './redux/state';
+import MyPosts from "./components/Profile/MyPosts/MyPosts";
 
 
 type AppPropsType = {
@@ -23,7 +24,9 @@ function App(props: AppPropsType) {
             <Header/>
             <NavBar/>
             <div className={'app-wrapper-content'}>
-                <Route path={'/dialogs'} render={() => <Dialogs state={props.state.dialogsPage}/>}/>
+                <Route path={'/dialogs'} render={() => <Dialogs state={props.state.dialogsPage}
+                                                                messageText={props.state.dialogsPage.newMessageText}
+                                                                dispatch={props.dispatch}/>}/>
                 <Route path={'/profile'} render={() => <Profile profilePage={props.state.profilePage}
                                                                 dispatch={props.dispatch}
                 />}/>
