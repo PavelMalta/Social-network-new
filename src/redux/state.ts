@@ -1,3 +1,6 @@
+import { dialogsReducer } from "./dialogs-reducer"
+import { profileReducer } from "./profile-reducer"
+
 export type PostType = {
     id: number
     message: string
@@ -111,33 +114,11 @@ const store: StoreType = {
     },
 
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            const newPost: PostType = {
-                id: new Date().getTime(),
-                message: this._state.profilePage.newPostText,
-                likesCount: 0
-            }
-            this._state.profilePage.posts.unshift(newPost)
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber()
-        }
-        else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber()
-        }
-        else if (action.type === 'SEND-MESSAGE') {
-            const newMessage: MessageType = {
-                id: new Date().getTime(),
-                message: this._state.dialogsPage.newMessageText
-            }
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessageText = ''
-            this._callSubscriber()
-        }
-        else if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
-            this._state.dialogsPage.newMessageText = action.body;
-            this._callSubscriber()
-        }
+
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+
+        this._callSubscriber()
 
     }
 }

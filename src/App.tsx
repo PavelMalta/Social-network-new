@@ -8,8 +8,7 @@ import {Route} from 'react-router-dom';
 import {News} from './components/News/News';
 import {Music} from './components/Music/Music';
 import {Settings} from './components/Settings/Settings';
-import {ActionsTypes, RootStateType} from './redux/state';
-import MyPosts from "./components/Profile/MyPosts/MyPosts";
+import {ActionsTypes, RootStateType, StoreType} from './redux/state';
 
 
 type AppPropsType = {

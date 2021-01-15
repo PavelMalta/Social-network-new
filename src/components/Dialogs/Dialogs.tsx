@@ -7,7 +7,7 @@ import {
     addPostActionCreator,
     DialogsPageType,
     onPostChangeActionCreator,
-    sendMessageCreator,
+    sendMessageCreator, StoreType,
     updateNewMessageCreator
 } from "../../redux/state";
 
