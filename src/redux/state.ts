@@ -1,5 +1,5 @@
-import { dialogsReducer } from "./dialogs-reducer"
-import { profileReducer } from "./profile-reducer"
+import { dialogsReducer, sendMessageCreator, updateNewMessageCreator } from "./dialogs-reducer"
+import {addPostActionCreator, onPostChangeActionCreator, profileReducer} from "./profile-reducer"
 import { sidebarReducer } from "./sidebar-reducer"
 
 export type PostType = {
@@ -46,31 +46,6 @@ export type ActionsTypes = ReturnType<typeof addPostActionCreator> |
                            ReturnType<typeof sendMessageCreator> |
                            ReturnType<typeof updateNewMessageCreator>
 
-export const addPostActionCreator = (postText: string) => {
-    return {
-        type: "ADD-POST",
-        postText: postText
-    } as const   // воспринимай обьект как константу
-}
-export const onPostChangeActionCreator = (newText: string) => {
-    return {
-        type: "UPDATE-NEW-POST-TEXT",
-        newText: newText
-    } as const
-}
-
-export const sendMessageCreator = (messageText: string) => {
-    return {
-        type: 'SEND-MESSAGE',
-        messageText: messageText
-    } as const
-}
-export const updateNewMessageCreator = (body: string) => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-BODY',
-        body: body
-    } as const
-}
 
 const store: StoreType = {
     _state: {

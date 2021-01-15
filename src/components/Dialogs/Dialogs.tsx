@@ -2,14 +2,8 @@ import React, {ChangeEvent} from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
-import {
-    ActionsTypes,
-    addPostActionCreator,
-    DialogsPageType,
-    onPostChangeActionCreator,
-    sendMessageCreator, StoreType,
-    updateNewMessageCreator
-} from "../../redux/state";
+import {ActionsTypes, DialogsPageType} from "../../redux/state";
+import {sendMessageCreator, updateNewMessageCreator} from "../../redux/dialogs-reducer";
 
 type DialogsPropsType = {
     state: DialogsPageType
@@ -23,9 +17,12 @@ export function Dialogs(props: DialogsPropsType) {
     let messagesElements = props.state.messages.map(m => <Message id={m.id} message={m.message}/>);
     let newMessageBody = props.state.newMessageText
 
-    let onSendMessageClick = () => {props.dispatch(sendMessageCreator(props.messageText))}
-    let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
-    {props.dispatch(updateNewMessageCreator(e.currentTarget.value))}
+    let onSendMessageClick = () => {
+        props.dispatch(sendMessageCreator(props.messageText))
+    }
+    let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch(updateNewMessageCreator(e.currentTarget.value))
+    }
 
     return (
         <div className={s.dialogs}>
