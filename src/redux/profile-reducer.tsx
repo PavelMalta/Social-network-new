@@ -1,4 +1,4 @@
-import {ActionsTypes, PostType, ProfilePageType} from "./state";
+import {ActionsTypes, PostType, ProfilePageType} from "./store";
 
 export const profileReducer = (state: ProfilePageType, action: ActionsTypes) => {
     switch (action.type) {
