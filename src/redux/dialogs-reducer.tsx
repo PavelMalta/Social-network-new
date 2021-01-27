@@ -1,4 +1,23 @@
-import {ActionsTypes, DialogsPageType, MessageType} from "./store";
+import {addPostActionCreator, onPostChangeActionCreator} from "./profile-reducer";
+
+export type DialogType = {
+    id: number
+    name: string
+}
+export type MessageType = {
+    id: number
+    message: string
+}
+export type DialogsPageType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
+    newMessageText: string
+}
+export type ActionsTypes = ReturnType<typeof addPostActionCreator> |
+    ReturnType<typeof onPostChangeActionCreator> |
+    ReturnType<typeof sendMessageCreator> |
+    ReturnType<typeof updateNewMessageCreator>
+
 
 const initialState: DialogsPageType = {
     dialogs: [

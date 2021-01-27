@@ -1,4 +1,14 @@
-import {ActionsTypes, PostType, ProfilePageType} from "./store";
+import { ActionsTypes } from "./dialogs-reducer"
+
+export type PostType = {
+    id: number
+    message: string
+    likesCount: number
+}
+export type ProfilePageType = {
+    posts: Array<PostType>
+    newPostText: string
+}
 
 const initialState: ProfilePageType = {
     posts: [
@@ -10,7 +20,7 @@ const initialState: ProfilePageType = {
         newPostText: ""
 }
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
     switch (action.type) {
         case 'ADD-POST':
             const newPost: PostType = {
@@ -20,13 +30,14 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             }
             state.posts.unshift(newPost)
             state.newPostText = '';
-            break;
+            return {...state, posts: [...state.posts]};
         case 'UPDATE-NEW-POST-TEXT':
-            state.newPostText = action.newText;
-            break;
+            return {...state, newPostText: action.newText}
+
+        default: return state
     }
 
-    return state
+
 }
 
 export const addPostActionCreator = (postText: string) => {

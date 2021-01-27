@@ -7,8 +7,8 @@ import {sendMessageCreator, updateNewMessageCreator} from "../../redux/dialogs-r
 
 type DialogsPropsType = {
     state: DialogsPageType
-    messageText: string
-    dispatch: (action: ActionsTypes) => void
+    updateNewMessage: (body: string) => void
+    sendMessage: () => void
 }
 
 export function Dialogs(props: DialogsPropsType) {
@@ -18,17 +18,18 @@ export function Dialogs(props: DialogsPropsType) {
     let newMessageBody = props.state.newMessageText
 
     let onSendMessageClick = () => {
-        props.dispatch(sendMessageCreator(props.messageText))
+        props.sendMessage()
+
     }
     let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewMessageCreator(e.currentTarget.value))
+        let body = e.currentTarget.value
+        props.updateNewMessage(body)
     }
 
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
                 {dialogsElements}
-
             </div>
             <div className={s.messages}>
                 <div>{messagesElements}</div>

@@ -1,11 +1,13 @@
 import React from "react";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ActionsTypes, ProfilePageType} from "../../redux/store";
 import MyPostsContainer from "./MyPosts/Post/MyPostsContainer";
+import {CombinedState, Store} from "redux";
+import { ProfilePageType } from "../../redux/profile-reducer";
+import {ActionsTypes, DialogsPageType} from "../../redux/dialogs-reducer";
+import { SidebarType } from "../../redux/sidebar-reducer";
 
 type ProfilePropsType = {
-    profilePage: ProfilePageType
-    dispatch: (action: ActionsTypes) => void
+    store: Store<CombinedState<{ profilePage: ProfilePageType; dialogsPage: DialogsPageType; sidebar: SidebarType; }>, ActionsTypes>
 }
 
 function Profile(props: ProfilePropsType) {
@@ -13,10 +15,7 @@ function Profile(props: ProfilePropsType) {
     return (
         <div>
             <ProfileInfo/>
-            <MyPostsContainer postsState={props.profilePage}
-                     newPostText={props.profilePage.newPostText}
-                     dispatch={props.dispatch}
-            />
+            <MyPostsContainer store={props.store} />
         </div>
     )
 }
