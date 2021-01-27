@@ -1,11 +1,11 @@
 import React from "react";
-import {DialogsPageType, sendMessageCreator, updateNewMessageCreator} from "../../redux/dialogs-reducer";
+import {sendMessageCreator, updateNewMessageCreator} from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect, MapDispatchToPropsParam} from "react-redux";
 
 type mapDispatchToPropsType = MapDispatchToPropsParam<{ updateNewMessage: (body: string) => void; sendMessage: () => void; }, {}>
 
-let mapStateToProps = (state: DialogsPageType) => {
+let mapStateToProps = (state: any) => {
     return {
         dialogsPage: state.dialogsPage
     }

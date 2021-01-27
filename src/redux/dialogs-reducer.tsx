@@ -47,13 +47,12 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Ac
             }
             state.messages.push(newMessage)
             state.newMessageText = ''
-            break
+           return {...state, messages: [...state.messages]}
         case 'UPDATE-NEW-MESSAGE-BODY':
             state.newMessageText = action.body;
-            break;
+            return {...state, newMessageText: action.body}
+        default: return state
     }
-
-    return state
 }
 export const sendMessageCreator = () => {
     return {
