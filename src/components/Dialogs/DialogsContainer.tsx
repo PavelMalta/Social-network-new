@@ -1,5 +1,5 @@
 import React from "react";
-import {ActionsTypes, sendMessageCreator, updateNewMessageCreator} from "../../redux/dialogs-reducer";
+import {ActionsDialogsTypes, sendMessageCreator, updateNewMessageCreator} from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
@@ -10,7 +10,7 @@ let mapStateToProps = (state: any) => {
         dialogsPage: state.dialogsPage
     }
 }
-let mapDispatchToProps = (dispatch: Dispatch<ActionsTypes>) => {
+let mapDispatchToProps = (dispatch: Dispatch<ActionsDialogsTypes>) => {
     return{
         updateNewMessage: (body: string) => {
             dispatch(updateNewMessageCreator(body))

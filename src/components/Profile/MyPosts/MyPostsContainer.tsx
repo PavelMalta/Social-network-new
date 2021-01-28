@@ -1,9 +1,9 @@
 import React from "react";
-import {addPostActionCreator, onPostChangeActionCreator} from "../../../redux/profile-reducer";
+import {ActionsProfileTypes, addPostActionCreator, onPostChangeActionCreator} from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
-import {ActionsTypes} from "../../../redux/dialogs-reducer";
+
 
 
 let mapStateToProps = (state: any) => {
@@ -12,7 +12,7 @@ let mapStateToProps = (state: any) => {
         newPostText: state.profilePage.newPostText
     }
 }
-let mapDispatchToProps = (dispatch: Dispatch<ActionsTypes>) => {
+let mapDispatchToProps = (dispatch: Dispatch<ActionsProfileTypes>) => {
     return {
         addPost: () => {
             dispatch(addPostActionCreator())

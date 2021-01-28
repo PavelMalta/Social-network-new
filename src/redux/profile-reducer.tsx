@@ -1,5 +1,5 @@
 import { v1 } from "uuid"
-import { ActionsTypes } from "./dialogs-reducer"
+
 
 export type PostType = {
     id: string
@@ -10,6 +10,7 @@ export type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
 }
+export type ActionsProfileTypes = ReturnType<typeof addPostActionCreator> | ReturnType<typeof onPostChangeActionCreator>
 
 const initialState: ProfilePageType = {
     posts: [
@@ -21,7 +22,7 @@ const initialState: ProfilePageType = {
         newPostText: ""
 }
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionsProfileTypes): ProfilePageType => {
     switch (action.type) {
         case 'ADD-POST':
             const newPost: PostType = {

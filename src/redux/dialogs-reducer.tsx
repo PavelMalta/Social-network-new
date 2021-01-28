@@ -1,5 +1,4 @@
 import { v1 } from "uuid";
-import {addPostActionCreator, onPostChangeActionCreator} from "./profile-reducer";
 
 export type DialogType = {
     id: string
@@ -14,10 +13,7 @@ export type DialogsPageType = {
     messages: Array<MessageType>
     newMessageText: string
 }
-export type ActionsTypes = ReturnType<typeof addPostActionCreator> |
-    ReturnType<typeof onPostChangeActionCreator> |
-    ReturnType<typeof sendMessageCreator> |
-    ReturnType<typeof updateNewMessageCreator>
+export type ActionsDialogsTypes = ReturnType<typeof sendMessageCreator> | ReturnType<typeof updateNewMessageCreator>
 
 
 const initialState: DialogsPageType = {
@@ -39,7 +35,7 @@ const initialState: DialogsPageType = {
     newMessageText: ""
 }
 
-export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes) => {
+export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsDialogsTypes) => {
     switch (action.type) {
         case 'SEND-MESSAGE':
             const newMessage: MessageType = {

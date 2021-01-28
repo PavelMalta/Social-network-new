@@ -1,10 +1,11 @@
-import {ActionsTypes} from "./dialogs-reducer";
+
 
 export type SidebarType = {}
+export type ActionsSidebarTypes = {}
 
 const initialState: SidebarType = {}
 
-export const sidebarReducer = (state:SidebarType = initialState, action: ActionsTypes) => {
+export const sidebarReducer = (state:SidebarType = initialState) => {
 
 
     return state
