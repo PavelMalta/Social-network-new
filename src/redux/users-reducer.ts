@@ -6,6 +6,7 @@ export type LocationType = {
 }
 export type UsersType = {
     id: string
+    photoUrl: string
     followed: boolean
     fullName: string
     status: string
@@ -18,9 +19,12 @@ export type ActionsUsersTypes = ReturnType<typeof followAC> | ReturnType<typeof 
 
 const initialState: UsersPageType = {
     users: [
-       /* {id: v1(), followed: false, fullName: 'Patrick', status: 'I am a driver', location: {city: 'Minsk', country: 'Belarus'}},
-        {id: v1(), followed: true, fullName: 'Alex', status: 'I am a QA', location: {city: 'Sudak', country: 'Crimea'}},
-        {id: v1(), followed: false, fullName: 'Tania', status: 'I am a QAA', location: {city: 'Moscow', country: 'Russia'}}*/
+        {id: v1(), photoUrl: "https://www.infox.ru/photo/0ef/bb4/0efbb4171708f115504317829d31f35aasdasdasd5a4e496e566ed4.22782928-650x433-0efbb4171708f115504317829d31f35a.jpg",
+            followed: false, fullName: 'Patrick', status: 'I am a driver', location: {city: 'Minsk', country: 'Belarus'}},
+        {id: v1(), photoUrl: "https://www.infox.ru/photo/0ef/bb4/0efbb4171708f115504317829d31f35aasdasdasd5a4e496e566ed4.22782928-650x433-0efbb4171708f115504317829d31f35a.jpg",
+            followed: true, fullName: 'Alex', status: 'I am a QA', location: {city: 'Sudak', country: 'Crimea'}},
+        {id: v1(), photoUrl: "https://www.infox.ru/photo/0ef/bb4/0efbb4171708f115504317829d31f35aasdasdasd5a4e496e566ed4.22782928-650x433-0efbb4171708f115504317829d31f35a.jpg",
+            followed: false, fullName: 'Tania', status: 'I am a QAA', location: {city: 'Moscow', country: 'Russia'}}
     ]
 }
 
