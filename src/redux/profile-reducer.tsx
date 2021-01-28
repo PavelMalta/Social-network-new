@@ -1,7 +1,8 @@
+import { v1 } from "uuid"
 import { ActionsTypes } from "./dialogs-reducer"
 
 export type PostType = {
-    id: number
+    id: string
     message: string
     likesCount: number
 }
@@ -12,10 +13,10 @@ export type ProfilePageType = {
 
 const initialState: ProfilePageType = {
     posts: [
-        {id: 1, message: "Hi, how are you?", likesCount: 12},
-        {id: 2, message: "It's my first post", likesCount: 11},
-        {id: 3, message: "It's my second post", likesCount: 120},
-        {id: 4, message: "It's my second post", likesCount: 10}
+        {id: v1(), message: "Hi, how are you?", likesCount: 12},
+        {id: v1(), message: "It's my first post", likesCount: 11},
+        {id: v1(), message: "It's my second post", likesCount: 120},
+        {id: v1(), message: "It's my second post", likesCount: 10}
     ],
         newPostText: ""
 }
@@ -24,7 +25,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     switch (action.type) {
         case 'ADD-POST':
             const newPost: PostType = {
-                id: new Date().getTime(),
+                id: v1(),
                 message: state.newPostText,
                 likesCount: 0
             }
