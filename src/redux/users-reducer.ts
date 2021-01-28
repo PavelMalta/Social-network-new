@@ -1,17 +1,17 @@
 import {v1} from "uuid";
 
-type LocationType = {
+export type LocationType = {
     city: string
     country: string
 }
-type UsersType = {
+export type UsersType = {
     id: string
     followed: boolean
     fullName: string
     status: string
     location: LocationType
 }
-type UsersPageType = {
+export type UsersPageType = {
     users: Array<UsersType>
 }
 export type ActionsUsersTypes = ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUsersAC>
