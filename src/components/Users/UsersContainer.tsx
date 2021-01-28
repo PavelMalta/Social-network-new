@@ -6,7 +6,7 @@ import { Users } from "./Users";
 
 let mapStateToProps = (state: any) => {
     return {
-        users: state.usersPage.users
+        usersPage: state.usersPage.users
     }
 }
 let mapDispatchToProps = (dispatch: Dispatch<ActionsUsersTypes>) => {
