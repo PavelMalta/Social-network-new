@@ -3,10 +3,11 @@ import {ActionsProfileTypes, addPostActionCreator, onPostChangeActionCreator} fr
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
+import {AppStateType} from "../../../redux/store-redux";
 
 
 
-let mapStateToProps = (state: any) => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         postsState: state.profilePage,
         newPostText: state.profilePage.newPostText
