@@ -28,7 +28,7 @@ const initialState: UsersPageType = {
     ]
 }
 
-export const usersReducer = (state: UsersPageType = initialState, action: ActionsUsersTypes) => {
+export const usersReducer = (state: UsersPageType = initialState, action: ActionsUsersTypes): UsersPageType => {
     switch (action.type) {
         case 'FOLLOW':
             return {...state, users: state.users.map(u => {
