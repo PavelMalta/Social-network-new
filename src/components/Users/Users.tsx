@@ -2,7 +2,7 @@ import React from "react";
 import {UsersType} from "../../redux/users-reducer";
 import s from "./Users.module.css"
 
-type UsersPropsType = {
+export type UsersPropsType = {
     usersPage: Array<UsersType>
     follow: (usersID: string) => void
     unfollow: (usersID: string) => void
