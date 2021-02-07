@@ -1,4 +1,3 @@
-import {v1} from "uuid";
 
 export type LocationType = {
     city: string
@@ -18,14 +17,7 @@ export type UsersPageType = {
 export type ActionsUsersTypes = ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUsersAC>
 
 const initialState: UsersPageType = {
-    users: [
-        {id: v1(), photoUrl: "https://www.infox.ru/photo/0ef/bb4/0efbb4171708f115504317829d31f35aasdasdasd5a4e496e566ed4.22782928-650x433-0efbb4171708f115504317829d31f35a.jpg",
-            followed: false, fullName: 'Patrick', status: 'I am a driver', location: {city: 'Minsk', country: 'Belarus'}},
-        {id: v1(), photoUrl: "https://www.infox.ru/photo/0ef/bb4/0efbb4171708f115504317829d31f35aasdasdasd5a4e496e566ed4.22782928-650x433-0efbb4171708f115504317829d31f35a.jpg",
-            followed: true, fullName: 'Alex', status: 'I am a QA', location: {city: 'Sudak', country: 'Crimea'}},
-        {id: v1(), photoUrl: "https://www.infox.ru/photo/0ef/bb4/0efbb4171708f115504317829d31f35aasdasdasd5a4e496e566ed4.22782928-650x433-0efbb4171708f115504317829d31f35a.jpg",
-            followed: false, fullName: 'Tania', status: 'I am a QAA', location: {city: 'Moscow', country: 'Russia'}}
-    ]
+    users: [ ]
 }
 
 export const usersReducer = (state: UsersPageType = initialState, action: ActionsUsersTypes): UsersPageType => {
