@@ -1,5 +1,5 @@
 
-export type LocationType = {
+/*export type LocationType = {
     city: string
     country: string
 }
@@ -10,6 +10,18 @@ export type UsersType = {
     fullName: string
     status: string
     location: LocationType
+}*/
+type PhotosType = {
+    small: string
+    large: string
+}
+export type UsersType = {
+    name: string
+    id: string
+    unigueUrlName: string
+    photos: PhotosType
+    status: string
+    followed: boolean
 }
 export type UsersPageType = {
     users: Array<UsersType>

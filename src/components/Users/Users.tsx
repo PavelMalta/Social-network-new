@@ -1,7 +1,8 @@
 import React from "react";
 import {UsersType} from "../../redux/users-reducer";
 import s from "./Users.module.css"
-import {v1} from "uuid";
+import axios from "axios";
+import userPhoto from "../../assets/images/user.png"
 
 export type UsersPropsType = {
     usersPage: Array<UsersType>
@@ -13,31 +14,10 @@ export type UsersPropsType = {
 
 export function Users(props: UsersPropsType) {
     if (props.usersPage.length === 0) {
-        props.setUsers([
-            {
-                id: v1(),
-                photoUrl: "https://www.infox.ru/photo/0ef/bb4/0efbb4171708f115504317829d31f35aasdasdasd5a4e496e566ed4.22782928-650x433-0efbb4171708f115504317829d31f35a.jpg",
-                followed: false,
-                fullName: 'Patrick',
-                status: 'I am a driver',
-                location: {city: 'Minsk', country: 'Belarus'}
-            },
-            {
-                id: v1(),
-                photoUrl: "https://www.infox.ru/photo/0ef/bb4/0efbb4171708f115504317829d31f35aasdasdasd5a4e496e566ed4.22782928-650x433-0efbb4171708f115504317829d31f35a.jpg",
-                followed: true,
-                fullName: 'Alex',
-                status: 'I am a QA',
-                location: {city: 'Sudak', country: 'Crimea'}
-            },
-            {
-                id: v1(),
-                photoUrl: "https://www.infox.ru/photo/0ef/bb4/0efbb4171708f115504317829d31f35aasdasdasd5a4e496e566ed4.22782928-650x433-0efbb4171708f115504317829d31f35a.jpg",
-                followed: false,
-                fullName: 'Tania',
-                status: 'I am a QAA',
-                location: {city: 'Moscow', country: 'Russia'}
-            }])
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            props.setUsers(response.data.items)
+        })
+
     }
 
     return (
@@ -46,7 +26,7 @@ export function Users(props: UsersPropsType) {
                 props.usersPage.map(u => <div key={u.id}>
                    <span>
                        <div>
-                           <img src={u.photoUrl} className={s.userPhoto}/>
+                           <img src={u.photos.small !== null ? u.photos.small: userPhoto} className={s.userPhoto}/>
                        </div>
                        <div>
                            {u.followed
@@ -60,12 +40,12 @@ export function Users(props: UsersPropsType) {
                    </span>
                     <span>
                        <span>
-                          <div>{u.fullName}</div>
+                          <div>{u.name}</div>
                           <div>{u.status}</div>
                         </span>
                         <span>
-                            <div>{u.location.city}</div>
-                            <div>{u.location.country}</div>
+                            <div>{"u.location.city"}</div>
+                            <div>{"u.location.country"}</div>
                         </span>
                    </span>
                 </div>)
