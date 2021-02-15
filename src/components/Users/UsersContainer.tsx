@@ -9,8 +9,8 @@ import {
 } from "../../redux/users-reducer";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
-import {Users} from "./UsersClass";
 import {AppStateType} from "../../redux/store-redux";
+import {UsersAPIComponent} from "./UsersAPIComponent";
 
 type MapStateToPropsType = {
     usersPage: Array<UsersType>
@@ -56,4 +56,4 @@ let mapDispatchToProps = (dispatch: Dispatch<ActionsUsersTypes>): MapDispatchToP
 }
 
 export const UsersContainer =
-    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(Users)
+    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)

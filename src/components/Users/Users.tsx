@@ -6,23 +6,33 @@ import userPhoto from "../../assets/images/user.png"
 
 export type UsersPropsType = {
     usersPage: Array<UsersType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
     follow: (usersID: string) => void
     unfollow: (usersID: string) => void
-    setUsers: (users: Array<UsersType>) => void
-
+    onPageChanged: (pageNumber: number) => void
 }
 
 export function Users(props: UsersPropsType) {
-    let getUsers = () => {
-        if (props.usersPage.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                props.setUsers(response.data.items)
-            })
-        }
+
+
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
+
+
     return (
         <div>
-            <button onClick={getUsers}>Get users</button>
+            <div>
+                {pages.map(p => {
+                    return <span className={props.currentPage === p ? s.selectedPage : ""}
+                                 onClick={(e) => {props.onPageChanged(p)}}>{p}</span>
+                })}
+
+            </div>
             {
                 props.usersPage.map(u => <div key={u.id}>
                    <span>
