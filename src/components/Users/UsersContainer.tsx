@@ -2,7 +2,7 @@ import React from "react";
 import {
     ActionsUsersTypes,
     followAC,
-    setCurrentPageAC,
+    setCurrentPageAC, setTotalUsersCountAC,
     setUsersAC,
     unfollowAC,
     UsersType
@@ -24,6 +24,7 @@ type MapDispatchToPropsType = {
     unfollow: (usersID: string) => void
     setUsers: (users: Array<UsersType>) => void
     setCurrentPage: (currentPage: number) => void
+    setTotalUsersCount: (totalCount: number) => void
 }
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
@@ -45,8 +46,11 @@ let mapDispatchToProps = (dispatch: Dispatch<ActionsUsersTypes>): MapDispatchToP
         setUsers: (users: Array<UsersType>) => {
             dispatch(setUsersAC(users))
         },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(setCurrentPageAC(currentPage))
+        setCurrentPage: (pageNumber: number) => {
+            dispatch(setCurrentPageAC(pageNumber))
+        },
+        setTotalUsersCount: (totalCount: number) => {
+            dispatch(setTotalUsersCountAC(totalCount))
         }
     }
 }
