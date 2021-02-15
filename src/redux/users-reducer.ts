@@ -1,4 +1,3 @@
-
 /*export type LocationType = {
     city: string
     country: string
@@ -29,10 +28,13 @@ export type UsersPageType = {
     totalUsersCount: number
     currentPage: number
 }
-export type ActionsUsersTypes = ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUsersAC>
+export type ActionsUsersTypes = ReturnType<typeof followAC>
+    | ReturnType<typeof unfollowAC>
+    | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof setCurrentPageAC>
 
 const initialState: UsersPageType = {
-    users: [ ],
+    users: [],
     pageSize: 5,
     totalUsersCount: 21,
     currentPage: 1
@@ -41,7 +43,8 @@ const initialState: UsersPageType = {
 export const usersReducer = (state: UsersPageType = initialState, action: ActionsUsersTypes): UsersPageType => {
     switch (action.type) {
         case 'FOLLOW':
-            return {...state, users: state.users.map(u => {
+            return {
+                ...state, users: state.users.map(u => {
                         if (u.id === action.userID) {
                             return {...u, followed: true}
                         }
@@ -50,7 +53,8 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
                 )
             };
         case 'UNFOLLOW':
-            return {...state, users: state.users.map(u => {
+            return {
+                ...state, users: state.users.map(u => {
                         if (u.id === action.userID) {
                             return {...u, followed: false}
                         }
@@ -59,7 +63,13 @@ export const usersReducer = (state: UsersPageType = initialState, action: Action
                 )
             }
         case 'SET-USERS':
-            return {...state, users: [...state.users, ...action.users]}
+            return {
+                ...state, users: [...state.users, ...action.users]
+            }
+        case 'SET-CURRENT-PAGE':
+            return {
+                ...state, currentPage: action.currentPage
+            }
 
         default:
             return state
@@ -79,8 +89,14 @@ export const unfollowAC = (userID: string) => {
     } as const
 }
 export const setUsersAC = (users: Array<UsersType>) => {
-    return{
+    return {
         type: "SET-USERS",
         users: users
+    } as const
+}
+export const setCurrentPageAC = (currentPage: number) => {
+    return {
+        type: "SET-CURRENT-PAGE",
+        currentPage
     } as const
 }

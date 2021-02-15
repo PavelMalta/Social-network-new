@@ -12,6 +12,7 @@ export type UsersPropsType = {
     follow: (usersID: string) => void
     unfollow: (usersID: string) => void
     setUsers: (users: Array<UsersType>) => void
+    setCurrentPage: (currentPage: number) => void
 }
 
 export class Users extends React.Component <UsersPropsType>{
@@ -33,7 +34,8 @@ export class Users extends React.Component <UsersPropsType>{
         return <div>
             <div>
                 {pages.map( p => {
-                   return <span className={this.props.currentPage === p ? s.selectedPage : ""}>{p}</span>
+                   return <span className={this.props.currentPage === p ? s.selectedPage : ""}
+                       onClick={()=>{this.props.setCurrentPage(p)}}>{p}</span>
                 })}
 
             </div>
