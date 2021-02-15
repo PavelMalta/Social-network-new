@@ -25,11 +25,17 @@ export type UsersType = {
 }
 export type UsersPageType = {
     users: Array<UsersType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 export type ActionsUsersTypes = ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUsersAC>
 
 const initialState: UsersPageType = {
-    users: [ ]
+    users: [ ],
+    pageSize: 5,
+    totalUsersCount: 21,
+    currentPage: 1
 }
 
 export const usersReducer = (state: UsersPageType = initialState, action: ActionsUsersTypes): UsersPageType => {

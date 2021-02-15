@@ -6,6 +6,9 @@ import userPhoto from "../../assets/images/user.png"
 
 export type UsersPropsType = {
     usersPage: Array<UsersType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
     follow: (usersID: string) => void
     unfollow: (usersID: string) => void
     setUsers: (users: Array<UsersType>) => void
@@ -13,16 +16,27 @@ export type UsersPropsType = {
 
 export class Users extends React.Component <UsersPropsType>{
 
-    constructor(props: UsersPropsType) {
-        super(props);
-            axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-                this.props.setUsers(response.data.items)
-            })
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
+        })
     }
 
-
     render() {
+
+        let pagesCount = Math.ceil(this.props.totalUsersCount  / this.props.pageSize);
+        let pages =[];
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+
         return <div>
+            <div>
+                {pages.map( p => {
+                   return <span className={this.props.currentPage === p ? s.selectedPage : ""}>{p}</span>
+                })}
+
+            </div>
             {
                 this.props.usersPage.map(u => <div key={u.id}>
                    <span>
