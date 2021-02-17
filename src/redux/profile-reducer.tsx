@@ -1,5 +1,5 @@
 import { v1 } from "uuid"
-
+import {ProfileType} from "../components/Profile/ProfileContainer";
 
 export type PostType = {
     id: string
@@ -9,33 +9,12 @@ export type PostType = {
 export type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
-    profile: any
+    profile: ProfileType
 }
 export type ActionsProfileTypes = ReturnType<typeof addPostActionCreator>
                                 | ReturnType<typeof onPostChangeActionCreator>
                                 | ReturnType<typeof setUserProfile>
 
-/*export type ProfileType = {
-    aboutMe: string
-    contacts: {
-        facebook: string,
-        website: string,
-        vk: string,
-        twitter: string,
-        instagram: string,
-        youtube: string,
-        github: string,
-        mainLink: string,
-    }
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    userId: number
-    photos: {
-        small: string
-        large: string
-    }
-}*/
 
 const initialState: ProfilePageType = {
     posts: [
@@ -45,7 +24,27 @@ const initialState: ProfilePageType = {
         {id: v1(), message: "It's my second post", likesCount: 10}
     ],
         newPostText: "",
-    profile: null
+    profile: {
+        aboutMe: "",
+        contacts: {
+            facebook:"",
+            website: "",
+            vk: "",
+            twitter: "",
+            instagram: "",
+            youtube: "",
+            github: "",
+            mainLink: "",
+        },
+        lookingForAJob: true,
+        lookingForAJobDescription: "",
+        fullName: "",
+        userId: NaN,
+        photos: {
+            small: "",
+            large: ""
+        }
+    }
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionsProfileTypes): ProfilePageType => {
@@ -79,7 +78,7 @@ export const onPostChangeActionCreator = (newText: string) => {
         newText: newText
     } as const
 }
-export const setUserProfile = (profile: string) => {
+export const setUserProfile = (profile: ProfileType) => {
     return {
         type: "SET-USER-PROFILE",
         profile

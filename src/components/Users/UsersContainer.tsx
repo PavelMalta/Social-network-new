@@ -27,21 +27,9 @@ type MapDispatchToPropsType = {
     setTotalUsersCount: (totalCount: number) => void
     toggleIsFetching: (idFetching: boolean) => void
 }
-export type UsersAPIPropsType = {
-    usersPage: Array<UsersType>
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    follow: (usersID: string) => void
-    unfollow: (usersID: string) => void
-    setUsers: (users: Array<UsersType>) => void
-    setCurrentPage: (pageNumber: number) => void
-    setTotalUsersCount: (totalCount: number) => void
-    isFetching: boolean
-    toggleIsFetching: (idFetching: boolean) => void
-}
+export type UsersComponentPropsType = MapStateToPropsType & MapDispatchToPropsType
 
-export class UsersComponent extends React.Component <UsersAPIPropsType> {
+export class UsersComponent extends React.Component <UsersComponentPropsType> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)

@@ -1,9 +1,10 @@
 import React from "react";
 import s from './ProfileInfo.module.css';
 import {Preloader} from "../../common/Preloader/Preloader";
+import {ProfileType} from "../ProfileContainer";
 
 type ProfileInfoPropsType = {
-    profile: any
+    profile: ProfileType
 }
 
 export function ProfileInfo(props: ProfileInfoPropsType) {
@@ -19,7 +20,8 @@ export function ProfileInfo(props: ProfileInfoPropsType) {
             </div>
             <div className={s.descriptionBlock}>
                 <img src={props.profile.photos.large}/>
-                ava + description
+                {props.profile.fullName}
+                {props.profile.aboutMe}
             </div>
         </div>
     )
