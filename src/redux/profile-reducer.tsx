@@ -9,7 +9,7 @@ export type PostType = {
 export type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
-    profile: ProfileType
+    profile: ProfileType | null
 }
 export type ActionsProfileTypes = ReturnType<typeof addPostActionCreator>
                                 | ReturnType<typeof onPostChangeActionCreator>
@@ -24,27 +24,7 @@ const initialState: ProfilePageType = {
         {id: v1(), message: "It's my second post", likesCount: 10}
     ],
         newPostText: "",
-    profile: {
-        aboutMe: "",
-        contacts: {
-            facebook:"",
-            website: "",
-            vk: "",
-            twitter: "",
-            instagram: "",
-            youtube: "",
-            github: "",
-            mainLink: "",
-        },
-        lookingForAJob: true,
-        lookingForAJobDescription: "",
-        fullName: "",
-        userId: NaN,
-        photos: {
-            small: "",
-            large: ""
-        }
-    }
+    profile: null
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionsProfileTypes): ProfilePageType => {

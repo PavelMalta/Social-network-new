@@ -4,7 +4,7 @@ import {Preloader} from "../../common/Preloader/Preloader";
 import {ProfileType} from "../ProfileContainer";
 
 type ProfileInfoPropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
 }
 
 export function ProfileInfo(props: ProfileInfoPropsType) {
