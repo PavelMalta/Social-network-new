@@ -1,13 +1,11 @@
 import React from "react";
 import {
-    ActionsUsersTypes,
     follow,
     setCurrentPage, setTotalUsersCount,
     setUsers, toggleIsFetching,
     unfollow,
     UsersType
 } from "../../redux/users-reducer";
-import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/store-redux";
 import axios from "axios";
@@ -43,7 +41,7 @@ export type UsersAPIPropsType = {
     toggleIsFetching: (idFetching: boolean) => void
 }
 
-export class UsersAPIComponent extends React.Component <UsersAPIPropsType> {
+export class UsersComponent extends React.Component <UsersAPIPropsType> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
@@ -87,29 +85,9 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         isFetching: state.usersPage.isFetching
     }
 }
-/*let mapDispatchToProps = (dispatch: Dispatch<ActionsUsersTypes>): MapDispatchToPropsType => {
-    return {
-        follow: (usersID: string) => {
-            dispatch(followAC(usersID))
-        },
-        unfollow: (usersID: string) => {
-            dispatch(unfollowAC(usersID))
-        },
-        setUsers: (users: Array<UsersType>) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (pageNumber: number) => {
-            dispatch(setCurrentPageAC(pageNumber))
-        },
-        setTotalUsersCount: (totalCount: number) => {
-            dispatch(setTotalUsersCountAC(totalCount))
-        },
-        toggleIsFetching: (idFetching: boolean) => {
-            dispatch(toggleIsFetchingAC(idFetching))
-        }
-    }
-}*/
 
-export const UsersContainer =
-    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
-    (mapStateToProps, {follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching})(UsersAPIComponent)
+
+export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
+(mapStateToProps,
+    {follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching})
+(UsersComponent)
