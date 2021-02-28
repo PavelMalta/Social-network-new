@@ -34,10 +34,9 @@ export class UsersComponent extends React.Component <UsersComponentPropsType> {
 
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        getUsers(this.props.currentPage, this.props.pageSize)
-            .then(response => {
-            this.props.setUsers(response.data.items)
-            this.props.setTotalUsersCount(response.data.totalCount)
+        getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+            this.props.setUsers(data.items)
+            this.props.setTotalUsersCount(data.totalCount)
             this.props.toggleIsFetching(false)
         })
     }
@@ -45,9 +44,8 @@ export class UsersComponent extends React.Component <UsersComponentPropsType> {
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber);
         this.props.toggleIsFetching(true)
-        getUsers(pageNumber, this.props.pageSize)
-            .then(response => {
-                this.props.setUsers(response.data.items)
+        getUsers(pageNumber, this.props.pageSize).then(data => {
+                this.props.setUsers(data.items)
                 this.props.toggleIsFetching(false)
         })
     }
