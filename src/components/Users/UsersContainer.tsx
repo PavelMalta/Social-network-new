@@ -18,7 +18,7 @@ type MapStateToPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    followingInProgress: boolean
+    followingInProgress: Array<string>
 }
 type MapDispatchToPropsType = {
     follow: (usersID: string) => void
@@ -27,7 +27,7 @@ type MapDispatchToPropsType = {
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalCount: number) => void
     toggleIsFetching: (idFetching: boolean) => void
-    toggleFollowingProgress: (idFetching: boolean) => void
+    toggleFollowingProgress: (idFetching: boolean, usersID: string) => void
 }
 export type UsersComponentPropsType = MapStateToPropsType & MapDispatchToPropsType
 
