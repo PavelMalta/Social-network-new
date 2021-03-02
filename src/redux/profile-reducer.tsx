@@ -1,6 +1,7 @@
 import { v1 } from "uuid"
 import {ProfileType} from "../components/Profile/ProfileContainer";
 import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 export type PostType = {
     id: string
@@ -67,7 +68,7 @@ export const setUserProfile = (profile: ProfileType) => {
 }
 
 export const getUserProfile = (userId: string) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<ActionsProfileTypes>) => {
         usersAPI.getProfile(userId).then(response => {
             dispatch(setUserProfile(response.data))
         })

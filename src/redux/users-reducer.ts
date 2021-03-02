@@ -11,6 +11,7 @@ export type UsersType = {
     location: LocationType
 }*/
 import {usersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 type PhotosType = {
     small: string
@@ -146,7 +147,7 @@ export const toggleFollowingProgress = (isFetching: boolean, userID: string) => 
 
 export const getUsers = (currentPage: number, pageSize: number) => {
 
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<ActionsUsersTypes>) => {
 
         dispatch(toggleIsFetching(true))
 
@@ -161,7 +162,7 @@ export const getUsers = (currentPage: number, pageSize: number) => {
 }
 
 export const unfollow = (id: string) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<ActionsUsersTypes>) => {
         dispatch(toggleFollowingProgress(true, id))
         usersAPI.unfollow(id)
             .then(data => {
@@ -174,7 +175,7 @@ export const unfollow = (id: string) => {
 }
 
 export const follow = (id: string) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<ActionsUsersTypes>) => {
         dispatch(toggleFollowingProgress(true, id))
         usersAPI.follow(id)
             .then(data => {
