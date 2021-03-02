@@ -2,9 +2,8 @@ import React from "react";
 import {
     follow, getUsers,
     setCurrentPage,
-    toggleFollowingProgress,
     unfollow,
-    UsersType
+    UsersType,
 } from "../../redux/users-reducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/store-redux";
@@ -21,11 +20,10 @@ type MapStateToPropsType = {
     followingInProgress: Array<string>
 }
 type MapDispatchToPropsType = {
-    follow: (usersID: string) => void
-    unfollow: (usersID: string) => void
     setCurrentPage: (currentPage: number) => void
-    toggleFollowingProgress: (idFetching: boolean, usersID: string) => void
     getUsers: (currentPage: number, pageSize: number) => void
+    unfollow: (id: string) => void
+    follow: (id: string) => void
 }
 export type UsersComponentPropsType = MapStateToPropsType & MapDispatchToPropsType
 
@@ -50,11 +48,10 @@ export class UsersComponent extends React.Component <UsersComponentPropsType> {
                    pageSize={this.props.pageSize}
                    totalUsersCount={this.props.totalUsersCount}
                    currentPage={this.props.currentPage}
-                   follow={this.props.follow}
-                   unfollow={this.props.unfollow}
                    onPageChanged={this.onPageChanged}
-                   toggleFollowingProgress={this.props.toggleFollowingProgress}
                    followingInProgress={this.props.followingInProgress}
+                   unfollow={this.props.unfollow}
+                   follow={this.props.follow}
             />
         </>
     }
@@ -74,7 +71,5 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
 (mapStateToProps,
-    {follow, unfollow,
-                     setCurrentPage,
-                     toggleFollowingProgress, getUsers})
+    {setCurrentPage, getUsers, unfollow, follow})
 (UsersComponent)
