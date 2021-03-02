@@ -10,6 +10,8 @@ export type UsersType = {
     status: string
     location: LocationType
 }*/
+import {usersAPI} from "../api/api";
+
 type PhotosType = {
     small: string
     large: string
@@ -139,4 +141,20 @@ export const toggleFollowingProgress = (isFetching: boolean, userID: string) => 
         isFetching,
         userID
     } as const
+}
+
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+
+    return (dispatch: any) => {
+
+        dispatch(toggleIsFetching(true))
+
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+
+            dispatch(setUsers(data.items));
+            dispatch(setTotalUsersCount(data.totalCount))
+            dispatch(toggleIsFetching(false))
+        })
+    }
 }

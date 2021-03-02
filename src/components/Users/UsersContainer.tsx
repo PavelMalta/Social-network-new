@@ -34,8 +34,11 @@ export type UsersComponentPropsType = MapStateToPropsType & MapDispatchToPropsTy
 export class UsersComponent extends React.Component <UsersComponentPropsType> {
 
     componentDidMount() {
+
         this.props.toggleIsFetching(true)
+
         usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+
             this.props.setUsers(data.items)
             this.props.setTotalUsersCount(data.totalCount)
             this.props.toggleIsFetching(false)
