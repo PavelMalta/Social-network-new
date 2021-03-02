@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    follow,
+    follow, getUsersThunkCreator,
     setCurrentPage, setTotalUsersCount,
     setUsers, toggleFollowingProgress, toggleIsFetching,
     unfollow,
@@ -28,6 +28,7 @@ type MapDispatchToPropsType = {
     setTotalUsersCount: (totalCount: number) => void
     toggleIsFetching: (idFetching: boolean) => void
     toggleFollowingProgress: (idFetching: boolean, usersID: string) => void
+    getUsersThunkCreator: (currentPage: number, pageSize: number) => void
 }
 export type UsersComponentPropsType = MapStateToPropsType & MapDispatchToPropsType
 
@@ -35,14 +36,8 @@ export class UsersComponent extends React.Component <UsersComponentPropsType> {
 
     componentDidMount() {
 
-        this.props.toggleIsFetching(true)
+        this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize);
 
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-
-            this.props.setUsers(data.items)
-            this.props.setTotalUsersCount(data.totalCount)
-            this.props.toggleIsFetching(false)
-        })
     }
 
     onPageChanged = (pageNumber: number) => {
@@ -85,5 +80,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
 (mapStateToProps,
-    {follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching, toggleFollowingProgress})
+    {follow, unfollow, setUsers,
+                     setCurrentPage, setTotalUsersCount, toggleIsFetching,
+                     toggleFollowingProgress, getUsersThunkCreator})
 (UsersComponent)
