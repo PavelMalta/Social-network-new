@@ -144,7 +144,7 @@ export const toggleFollowingProgress = (isFetching: boolean, userID: string) => 
 }
 
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+export const getUsers = (currentPage: number, pageSize: number) => {
 
     return (dispatch: any) => {
 
@@ -156,5 +156,31 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
             dispatch(setTotalUsersCount(data.totalCount))
             dispatch(toggleIsFetching(false))
         })
+    }
+}
+
+export const userUnfollow = (id: string) => {
+    return (dispatch: any) => {
+        dispatch(toggleFollowingProgress(true, id))
+        usersAPI.unfollow(id)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(unfollow(id))
+                }
+                dispatch(toggleFollowingProgress(false, id))
+            })
+    }
+}
+
+export const userFollow = (id: string) => {
+    return (dispatch: any) => {
+        dispatch(toggleFollowingProgress(true, id))
+        usersAPI.follow(id)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(follow(id))
+                }
+                dispatch(toggleFollowingProgress(false, id))
+            })
     }
 }
