@@ -31,6 +31,8 @@ export type ProfileType = {
 
 type MapStateToPropsType = {
     profile: ProfileType | null
+}
+type mapStateToPropsForRedirectType = {
     isAuth: boolean
 }
 
@@ -69,13 +71,17 @@ class ProfileContainer extends React.Component <PropsType> {
     }
 }
 
+let mapStateToPropsForRedirect = (state: AppStateType): mapStateToPropsForRedirectType => ({
+    isAuth: state.auth.isAuth
+})
 
 let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
+AuthRedirectComponent = connect<mapStateToPropsForRedirectType, {}, {}, AppStateType>(mapStateToPropsForRedirect)(AuthRedirectComponent)
+
 
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
-    isAuth: state.auth.isAuth
 })
 
 
