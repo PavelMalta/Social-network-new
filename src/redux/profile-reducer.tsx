@@ -10,12 +10,10 @@ export type PostType = {
 }
 export type ProfilePageType = {
     posts: Array<PostType>
-    newPostText: string
     profile: ProfileType | null
     status: string
 }
 export type ActionsProfileTypes = ReturnType<typeof addPostActionCreator>
-                                | ReturnType<typeof onPostChangeActionCreator>
                                 | ReturnType<typeof setUserProfile>
                                 | ReturnType<typeof setStatusProfile>
 
@@ -27,7 +25,6 @@ const initialState: ProfilePageType = {
         {id: v1(), message: "It's my second post", likesCount: 120},
         {id: v1(), message: "It's my second post", likesCount: 10}
     ],
-        newPostText: "",
     profile: null,
     status: ""
 }
@@ -37,14 +34,11 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
         case 'ADD-POST':
             const newPost: PostType = {
                 id: v1(),
-                message: state.newPostText,
+                message: action.newText,
                 likesCount: 0
             }
             state.posts.unshift(newPost)
-            state.newPostText = '';
             return {...state, posts: [...state.posts]};
-        case 'UPDATE-NEW-POST-TEXT':
-            return {...state, newPostText: action.newText};
         case 'SET-USER-PROFILE':
             return {...state, profile: action.profile};
         case 'SET-STATUS-PROFILE':
@@ -55,16 +49,11 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
     }
 }
 
-export const addPostActionCreator = () => {
+export const addPostActionCreator = (newText: string) => {
     return {
-        type: "ADD-POST"
+        type: "ADD-POST",
+        newText
     } as const   // воспринимай обьект как константу
-}
-export const onPostChangeActionCreator = (newText: string) => {
-    return {
-        type: "UPDATE-NEW-POST-TEXT",
-        newText: newText
-    } as const
 }
 export const setUserProfile = (profile: ProfileType) => {
     return {

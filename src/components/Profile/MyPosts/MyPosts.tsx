@@ -1,44 +1,52 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import { ProfilePageType } from "../../../redux/profile-reducer";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
+import {Field, Form, InjectedFormProps, reduxForm} from "redux-form";
+
 
 
 type MyPostsPropsType = {
     postsState: ProfilePageType
-    newPostText: string
-    addPost: () => void
-    updateNewPostText: (text: string) => void
+    addPost: (text: string) => void
 }
 
 function MyPosts(props: MyPostsPropsType) {
 
     let postsElement = props.postsState.posts.map( p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
 
-    const addPost = () => props.addPost()
-
-    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let text = e.currentTarget.value
-        props.updateNewPostText(text)
+    const onSendPost = (formData: FormDataType) => {
+        props.addPost(formData.post)
     }
 
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
-            <div>
-                <div>
-                    <textarea value={props.newPostText}
-                              onChange={ onPostChange }/>
-                </div>
-                <div>
-                    <button onClick={ addPost }>Add post</button>
-                </div>
-            </div>
+            <AddMyPostsReduxForm onSubmit={onSendPost}/>
             <div className={s.posts}>
                 {postsElement}
             </div>
         </div>
     )
 }
+
+type FormDataType = {
+    post: string
+}
+
+export const AddMyPostsForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+    return (
+        <Form onSubmit={props.handleSubmit}>
+            <div>
+                    <Field placeholder={'Post'} name={'post'} component={'textarea'}/>
+            </div>
+            <div>
+                <button>Add post</button>
+            </div>
+        </Form>
+    )
+}
+
+export const AddMyPostsReduxForm = reduxForm<FormDataType>({form: 'login'})(AddMyPostsForm)
 
 export default MyPosts
