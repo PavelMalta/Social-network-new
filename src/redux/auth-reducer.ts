@@ -1,6 +1,7 @@
 import {authAPI} from "../api/api";
 import {Dispatch} from "redux";
 import {toggleIsFetching} from "./users-reducer";
+import {stopSubmit} from "redux-form";
 
 export type UserLoginType = {
     id: number | null
@@ -61,6 +62,10 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
             .then(data => {
                     if (data.resultCode === 0) {
                         dispatch(setAuthUserData(data.data.id, data.data.login, data.data.email, true))
+                    } else {
+                        let message = data.messages.length > 0 ? data.messages[0] : "Some error"
+                        // @ts-ignore
+                        dispatch(stopSubmit('login', {_error: message}))
                     }
                 }
             )
