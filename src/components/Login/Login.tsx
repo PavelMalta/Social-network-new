@@ -2,6 +2,10 @@ import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import { Input } from "../common/FormsControls/FormsControls";
 import {requiredField} from "../../utils/validators/validators";
+import {useDispatch, useSelector} from "react-redux";
+import { loginTC } from "../../redux/auth-reducer";
+import {AppStateType} from "../../redux/store-redux";
+import {Preloader} from "../common/Preloader/Preloader";
 
 type LoginPropsType = {
 
@@ -14,12 +18,16 @@ type FormDataType = {
 }
 
 export const Login = (props: LoginPropsType) => {
+    let dispatch = useDispatch()
+    let isFetching = useSelector<AppStateType>(state => state.usersPage.isFetching)
+
     const onSubmit = (formData: FormDataType) => {
-        console.log(formData)
+        dispatch(loginTC(formData.login, formData.password, formData.rememberMe))
     }
 
     return (
         <div>
+            {isFetching ? <Preloader/> : null}
             <h1>Login</h1>
            <LoginReduxForm onSubmit={onSubmit}/>
         </div>
