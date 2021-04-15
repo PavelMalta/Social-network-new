@@ -23,9 +23,8 @@ export const authReducer = (state: UserLoginType = initialState, action: Actions
         case 'SET-USER-DATA':
             return {
                 ...state,
-                ...action.payload,
-                isAuth: action.payload.isAuth
-            };
+                ...action.payload
+                };
 
         default:
             return state
@@ -62,10 +61,12 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
             .then(data => {
                     if (data.resultCode === 0) {
                         dispatch(setAuthUserData(data.data.id, data.data.login, data.data.email, true))
-                        dispatch(toggleIsFetching(false))
                     }
                 }
             )
+            .finally(() => {
+                dispatch(toggleIsFetching(false))
+            })
     }
 }
 export const logoutTC = () => {
