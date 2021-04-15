@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import { loginTC } from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/store-redux";
 import {Preloader} from "../common/Preloader/Preloader";
+import {Redirect} from "react-router-dom";
 
 type LoginPropsType = {
 
@@ -20,9 +21,14 @@ type FormDataType = {
 export const Login = (props: LoginPropsType) => {
     let dispatch = useDispatch()
     let isFetching = useSelector<AppStateType>(state => state.usersPage.isFetching)
+    let isAuth = useSelector<AppStateType>(state => state.auth.isAuth)
 
     const onSubmit = (formData: FormDataType) => {
         dispatch(loginTC(formData.login, formData.password, formData.rememberMe))
+    }
+
+    if (isAuth) {
+        return <Redirect to={'/profile'}/>
     }
 
     return (
