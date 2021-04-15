@@ -10,8 +10,6 @@ export type UserLoginType = {
 export type ActionsUsersTypes = ReturnType<typeof setAuthUserData>
 
 
-
-
 const initialState: UserLoginType = {
     id: null,
     login: null,
@@ -55,3 +53,14 @@ export const getAuthUserData = () => {
     }
 }
 
+export const loginTC = (email: string, password: string, rememberMe: boolean) => {
+    return (dispatch: Dispatch<ActionsUsersTypes>) => {
+        authAPI.login(email, password, rememberMe)
+            .then(data => {
+                    if (data.resultCode === 0) {
+                        dispatch(setAuthUserData(data.data.id, data.data.login, data.data.email))
+                    }
+                }
+            )
+    }
+}
