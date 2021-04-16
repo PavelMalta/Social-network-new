@@ -10,26 +10,43 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import {Login} from "./components/Login/Login";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import {connect} from "react-redux";
+import {AppStateType} from "./redux/store-redux";
+import {getAuthUserData} from "./redux/auth-reducer";
 
+type MapStateToPropsType = {
 
-function App() {
+}
+type MapDispatchToPropsType = {
+    getAuthUserData: () => void
+}
+export type AppComponentPropsType = MapStateToPropsType & MapDispatchToPropsType
 
-    return (
-        <div className={'app-wrapper'}>
-            <HeaderContainer/>
-            <NavBar/>
-            <div className={'app-wrapper-content'}>
-                <Route path={'/dialogs'} render={() => <DialogsContainer />}/>
-                <Route path={'/profile/:userId?'}
-                       render={() => <ProfileContainer />}/>
-                <Route path={'/news'} component={News}/>
-                <Route path={'/music'} component={Music}/>
-                <Route path={'/settings'} component={Settings}/>
-                <Route path={'/users'} render={() => <UsersContainer />}/>
-                <Route path={'/login'} render={() => <Login />}/>
+class App extends React.Component<AppComponentPropsType> {
+
+    componentDidMount() {
+        this.props.getAuthUserData()
+    }
+
+    render() {
+        return (
+            <div className={'app-wrapper'}>
+                <HeaderContainer/>
+                <NavBar/>
+                <div className={'app-wrapper-content'}>
+                    <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+                    <Route path={'/profile/:userId?'}
+                           render={() => <ProfileContainer/>}/>
+                    <Route path={'/news'} component={News}/>
+                    <Route path={'/music'} component={Music}/>
+                    <Route path={'/settings'} component={Settings}/>
+                    <Route path={'/users'} render={() => <UsersContainer/>}/>
+                    <Route path={'/login'} render={() => <Login/>}/>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
-export default App;
+export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
+(null, {getAuthUserData})(App);
