@@ -33,6 +33,8 @@ export type ProfileType = {
 type MapStateToPropsType = {
     profile: ProfileType | null
     status: string
+    authorizedUserId: number | null
+    isAuth: boolean
 }
 
 type MapDispatchToPropsType = {
@@ -55,7 +57,9 @@ class ProfileContainer extends React.Component <PropsType> {
 
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = '14415';
+            if (this.props.authorizedUserId !== null && this.props.authorizedUserId !== undefined) {
+            userId = this.props.authorizedUserId.toString();
+        }
         }
         this.props.getUserProfile(userId);
         this.props.getUserStatus(userId);
@@ -79,7 +83,9 @@ class ProfileContainer extends React.Component <PropsType> {
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    authorizedUserId: state.auth.id,
+    isAuth: state.auth.isAuth
 })
 
 
