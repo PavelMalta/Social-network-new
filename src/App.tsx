@@ -12,23 +12,28 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import {connect} from "react-redux";
 import {AppStateType} from "./redux/store-redux";
-import {getAuthUserData} from "./redux/auth-reducer";
+import {Preloader} from "./components/common/Preloader/Preloader";
+import {initializedApp} from "./redux/app-reducer";
 
 type MapStateToPropsType = {
-
+    initialized: boolean
 }
 type MapDispatchToPropsType = {
-    getAuthUserData: () => void
+    initializedApp: () => void
 }
 export type AppComponentPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 class App extends React.Component<AppComponentPropsType> {
 
     componentDidMount() {
-        this.props.getAuthUserData()
+        this.props.initializedApp()
     }
 
     render() {
+        if (!this.props.initialized) {
+            return <Preloader/>
+        }
+
         return (
             <div className={'app-wrapper'}>
                 <HeaderContainer/>
@@ -48,5 +53,9 @@ class App extends React.Component<AppComponentPropsType> {
     }
 }
 
+const mapStateToProps = (state: AppStateType):MapStateToPropsType => ({
+    initialized: state.app.initialized
+})
+
 export default connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
-(null, {getAuthUserData})(App);
+(mapStateToProps, {initializedApp})(App);
